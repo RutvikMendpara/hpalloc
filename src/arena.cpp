@@ -6,7 +6,7 @@
 constexpr size_t MAX_ALLOWED_BYTES = 256 * 1024 * 1024;
 
 Arena::Arena(size_t size_in_bytes) {
-    page_size_ = getpagesize();
+    page_size_ = static_cast<size_t>(getpagesize());
     total_size_ = size_in_bytes;
 
     if (size_in_bytes == 0 || size_in_bytes > MAX_ALLOWED_BYTES || size_in_bytes % page_size_ != 0) {
