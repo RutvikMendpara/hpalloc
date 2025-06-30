@@ -39,6 +39,9 @@ size_t Arena::pages_allocated() const {
 size_t Arena::total_pages() const {
     return total_pages_;
 }
+size_t Arena::page_size() const {
+    return page_size_;
+}
 
 Arena::~Arena() {
     if (base_) {

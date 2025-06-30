@@ -8,6 +8,7 @@ public:
     void* alloc_page();
     size_t pages_allocated() const;
     size_t total_pages() const;
+    size_t page_size() const;
     ~Arena();
 
 private:
