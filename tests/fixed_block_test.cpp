@@ -52,3 +52,36 @@ TEST(FixedBlockTest, ReuseDeallocatedBlock) {
     // 'b' should be equal to 'a' (LIFO free list)
     ASSERT_EQ(b, a);
 }
+
+TEST(FixedBlockTest, AllocateAndFree10KBlocks) {
+    constexpr size_t block_count = 10000;
+    constexpr size_t arena_size = ((kBlockSize * block_count + kPageSize - 1) / kPageSize) * kPageSize;
+
+    Arena arena(arena_size);
+    Fixed_Block allocator(arena, kBlockSize);
+
+    std::vector<void*> blocks;
+
+    // Allocate 10K blocks
+    for (size_t i = 0; i < block_count; ++i) {
+        void* ptr = allocator.allocate();
+        ASSERT_NE(ptr, nullptr);
+        ASSERT_EQ(reinterpret_cast<uintptr_t>(ptr) % kBlockSize, 0); // Alignment
+        blocks.push_back(ptr);
+    }
+
+    // Ensure uniqueness (no duplicate addresses)
+    std::unordered_set<void*> unique_blocks(blocks.begin(), blocks.end());
+    ASSERT_EQ(unique_blocks.size(), blocks.size());
+
+    // Deallocate all blocks
+    for (void* ptr : blocks) {
+        allocator.deallocate(ptr);
+    }
+
+    // Re-allocate again to check if reuse works
+    for (size_t i = 0; i < block_count; ++i) {
+        void* ptr = allocator.allocate();
+        ASSERT_NE(ptr, nullptr);
+    }
+}
