@@ -24,3 +24,39 @@ TEST(ArenaTest, ExhaustsPages) {
     ASSERT_EQ(p3, nullptr);
     ASSERT_EQ(arena.pages_allocated(), 2);
 }
+
+TEST(ArenaTest, TracksPagesCorrectly) {
+    Arena arena(10 * 4096);
+
+    ASSERT_EQ(arena.total_pages(), 10);
+
+    ASSERT_NE(arena.alloc_page(), nullptr);
+
+    for (int i = 1; i < 10; ++i) {
+        ASSERT_NE(arena.alloc_page(), nullptr);
+        ASSERT_EQ(arena.pages_allocated(), i + 1);
+    }
+
+    ASSERT_EQ(arena.alloc_page(), nullptr);
+    ASSERT_EQ(arena.pages_allocated(), 10);
+}
+
+
+TEST(ArenaTest, AllocatedPagesAreAlignedAndUnique) {
+    constexpr size_t page_count = 100;
+    Arena arena(page_count * 4096);
+
+    std::vector<void*> addrs;
+
+    for (size_t i = 0; i < page_count; ++i) {
+        void* p = arena.alloc_page();
+        ASSERT_NE(p, nullptr);
+        ASSERT_EQ(reinterpret_cast<uintptr_t>(p) % 4096, 0); // 4KB aligned
+        addrs.push_back(p);
+    }
+
+    // Check uniqueness
+    std::sort(addrs.begin(), addrs.end());
+    auto it = std::unique(addrs.begin(), addrs.end());
+    ASSERT_TRUE(it == addrs.end()); // no duplicates
+}

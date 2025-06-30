@@ -18,13 +18,12 @@ add_library(hpalloc STATIC
         src/fixed_block.cpp
         src/size_class.cpp
 )
-
 target_include_directories(hpalloc PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
 # --------------------
-# GoogleTest (before test targets)
+# GoogleTest setup
 # --------------------
 include(FetchContent)
 FetchContent_Declare(
@@ -37,22 +36,23 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 # --------------------
-# Benchmark target
-# --------------------
-add_executable(allocator_bench benchmarks/main.cpp)
-target_link_libraries(allocator_bench hpalloc pthread)
-
-# --------------------
 # Test target
 # --------------------
-add_executable(allocator_tests
-        tests/main.cpp
+add_executable(hpalloc_tests
         tests/arena_test.cpp
+        tests/main.cpp
 )
-
-target_link_libraries(allocator_tests
+target_link_libraries(hpalloc_tests
         hpalloc
         gtest
         gtest_main
         pthread
 )
+
+add_test(NAME ArenaTest COMMAND hpalloc_tests)
+
+# --------------------
+# Benchmark target (optional)
+# --------------------
+add_executable(allocator_bench benchmarks/main.cpp)
+target_link_libraries(allocator_bench hpalloc pthread)
