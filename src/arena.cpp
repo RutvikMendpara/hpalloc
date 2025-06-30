@@ -1,20 +1,20 @@
 #include "hpalloc/arena.h"
 
-Area::Area(size_t size_in_bytes) {
+Arena::Arena(size_t size_in_bytes) {
 
 }
 
-void* Area::alloc_page() {
+void* Arena::alloc_page() {
 
 }
 
-size_t Area::page_allocated() const {
+size_t Arena::page_allocated() const {
 
 }
-size_t Area::total_pages() const {
+size_t Arena::total_pages() const {
 
 }
 
-Area::~Area() {
+Arena::~Arena() {
 
 }

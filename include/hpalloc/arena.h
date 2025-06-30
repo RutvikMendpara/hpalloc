@@ -1,13 +1,13 @@
 #pragma once
 #include <cstddef>
 
-class Area {
+class Arena {
 public:
-    explicit Area(size_t size_in_bytes);
+    explicit Arena(size_t size_in_bytes);
     void* alloc_page();
     size_t page_allocated() const;
     size_t total_pages() const;
-    ~Area();
+    ~Arena();
 
 private:
     void* base_;
