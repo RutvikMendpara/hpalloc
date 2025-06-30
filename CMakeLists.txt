@@ -40,6 +40,7 @@ enable_testing()
 # --------------------
 add_executable(hpalloc_tests
         tests/arena_test.cpp
+        tests/fixed_block_test.cpp
         tests/main.cpp
 )
 target_link_libraries(hpalloc_tests
@@ -48,8 +49,7 @@ target_link_libraries(hpalloc_tests
         gtest_main
         pthread
 )
-
-add_test(NAME ArenaTest COMMAND hpalloc_tests)
+add_test(NAME AllTests COMMAND hpalloc_tests)
 
 # --------------------
 # Benchmark target (optional)

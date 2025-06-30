@@ -2,7 +2,7 @@
 #include <stdexcept>
 
 Fixed_Block::Fixed_Block(Arena& arena, size_t block_size):
-    arena_(arena), block_size_(block_size), free_list_(nullptr) {
+    free_list_(nullptr), arena_(arena), block_size_(block_size) {
     if (block_size_ < sizeof(FreeBlock*)) {
         throw std::invalid_argument("Block size too small for freelist pointer");
     }
