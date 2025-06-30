@@ -1,11 +1,12 @@
 #pragma once
 #include <cstddef>
 
+
 class Arena {
 public:
     explicit Arena(size_t size_in_bytes);
     void* alloc_page();
-    size_t page_allocated() const;
+    size_t pages_allocated() const;
     size_t total_pages() const;
     ~Arena();
 
