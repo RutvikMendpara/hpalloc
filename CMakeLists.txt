@@ -42,6 +42,7 @@ add_executable(hpalloc_tests
         tests/arena_test.cpp
         tests/fixed_block_test.cpp
         tests/main.cpp
+        tests/size_class_test.cpp
 )
 target_link_libraries(hpalloc_tests
         hpalloc
