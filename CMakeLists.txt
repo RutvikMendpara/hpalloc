@@ -43,6 +43,7 @@ add_executable(hpalloc_tests
         tests/fixed_block_test.cpp
         tests/main.cpp
         tests/size_class_test.cpp
+
 )
 target_link_libraries(hpalloc_tests
         hpalloc
@@ -53,7 +54,7 @@ target_link_libraries(hpalloc_tests
 add_test(NAME AllTests COMMAND hpalloc_tests)
 
 # --------------------
-# Benchmark target (optional)
+# Benchmark target
 # --------------------
 add_executable(allocator_bench benchmarks/main.cpp)
 target_link_libraries(allocator_bench hpalloc pthread)
