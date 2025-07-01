@@ -1,5 +1,6 @@
 #include "hpalloc/allocator.h"
 #include <gtest/gtest.h>
+#include <algorithm>
 
 TEST(ArenaTest, AllocatesSinglePage) {
     Arena arena(4 * 4096);
