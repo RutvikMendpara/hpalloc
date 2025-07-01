@@ -2,7 +2,10 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <cstddef>
 #include <vector>
+#include <unistd.h>
+#include <fstream>
 #include "hpalloc/allocator.h"
 
 // size class benchmark
@@ -12,6 +15,14 @@ void run_size_class_benchmark();
 using Clock = std::chrono::high_resolution_clock;
 void* allocate_block(SizeClassAllocator& alloc, size_t size, size_t& class_size) {
     return alloc.allocate(size, class_size);
+}
+
+size_t get_rss_kb() {
+    std::ifstream statm("/proc/self/statm");
+    size_t pages = 0;
+    statm >> pages;          // Ignore first field (total program size)
+    statm >> pages;          // Resident set size in pages
+    return pages * sysconf(_SC_PAGESIZE) / 1024; // Convert to KB
 }
 
 int main(int argc, char* argv[]) {
@@ -77,7 +88,7 @@ int main(int argc, char* argv[]) {
     std::cout << "[Perf] Total time: " << total_ns / 1e6 << " ms\n";
     std::cout << "[Perf] Avg latency: " << avg_ns << " ns\n";
     std::cout << "[Perf] P99 latency: " << p99 << " ns\n";
-    std::cout << "[Perf] RSS: [Not Implemented]\n";
+    std::cout << "[Perf] RSS: " << get_rss_kb() << " KB\n";
     return 0;
 }
 
