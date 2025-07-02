@@ -93,6 +93,7 @@ public:
 ---
 
 ### Benchmark Results (Block Size: 64, Count: 10,000,000)
+> Benchmarked on: Fedora 42 · Kernel 6.14.8-300 · AMD Ryzen 5 3550H (4C/8T) · 16GB RAM
 
 | Run | Allocator | Total Time (ms) | Avg Latency (ns) | P99 Latency (ns) | RSS (KB) |
 | --- | --------- | --------------- | ---------------- | ---------------- | -------- |
