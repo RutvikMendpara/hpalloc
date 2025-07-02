@@ -90,6 +90,22 @@ public:
     void deallocate(void* ptr, size_t actual_class_size);   // Caller must provide size used
 };
 ```
+---
+
+### Benchmark Results (Block Size: 64, Count: 10,000,000)
+
+| Run | Allocator | Total Time (ms) | Avg Latency (ns) | P99 Latency (ns) | RSS (KB) |
+| --- | --------- | --------------- | ---------------- | ---------------- | -------- |
+| 1   | hpalloc   | 981.828         | 98.1828          | 51               | 160132   |
+| 1   | malloc    | 2045.81         | 204.581          | 2986             | 941320   |
+| 2   | hpalloc   | 979.79          | 97.979           | 51               | 160200   |
+| 2   | malloc    | 1840.94         | 184.094          | 2966             | 941320   |
+| 3   | hpalloc   | 980.181         | 98.0181          | 51               | 160164   |
+| 3   | malloc    | 1828.4          | 182.84           | 2966             | 941256   |
+| 4   | hpalloc   | 979.383         | 97.9383          | 51               | 160008   |
+| 4   | malloc    | 1839.73         | 183.973          | 2966             | 941200   |
+| 5   | hpalloc   | 980.125         | 98.0125          | 51               | 160196   |
+| 5   | malloc    | 1856.51         | 185.651          | 2975             | 941200   |
 
 ---
 
