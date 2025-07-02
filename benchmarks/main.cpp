@@ -80,10 +80,10 @@ int main(int argc, char* argv[]) {
 
     auto end = Clock::now();
     double total_ns = std::chrono::duration<double, std::nano>(end - start).count();
-    double avg_ns = total_ns / count;
+    double avg_ns = static_cast<double>(total_ns) / static_cast<double>(count);
 
     std::sort(durations.begin(), durations.end());
-    double p99 = durations[size_t(count * 0.99)];
+    double p99 = durations[static_cast<size_t>(static_cast<double>(count) * 0.99)];
 
     std::cout << "[Perf] Total time: " << total_ns / 1e6 << " ms\n";
     std::cout << "[Perf] Avg latency: " << avg_ns << " ns\n";
