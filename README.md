@@ -118,3 +118,25 @@ public:
 * Thread safety is not guaranteed; locking must be handled externally if required.
 * Intended for systems-level performance testing, allocator benchmarking, and research into allocation strategies, not production deployment.
 
+---
+
+## Build & Benchmarks
+
+### Build
+
+```bash
+./build.sh
+````
+
+### Run Benchmarks
+
+```bash
+./benchmark.sh
+```
+
+### Requirements
+
+* CMake ≥ 3.x
+* g++ or clang++
+* Linux (tested on Fedora)
+
