@@ -138,5 +138,5 @@ public:
 
 * CMake ≥ 3.x
 * g++ or clang++
-* Linux (tested on Fedora)
+* Linux (tested on Fedora, Ubuntu)
 
